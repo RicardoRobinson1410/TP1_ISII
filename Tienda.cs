@@ -17,10 +17,11 @@ namespace Proyecto_Ingenierìa_de_software
 
         public void AgregarProducto(Producto producto)
         {
+            if (producto == null) throw new Exception("Invalid product");
             Inventario.Add(producto);
         }
 
-        public Producto BuscarProducto(string nombre)
+        public virtual Producto BuscarProducto(string nombre)
         {
             var product = Inventario.FirstOrDefault(p => p.Nombre == nombre);
             if (product == null) throw new Exception("Invalid product");
