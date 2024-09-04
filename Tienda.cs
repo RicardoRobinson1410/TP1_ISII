@@ -8,6 +8,10 @@
         {
             Inventario = new List<Producto>();
         }
+        public Tienda(List<Producto> listaProd)
+        {
+            Inventario = new List<Producto>();
+        }
 
         public void AgregarProducto(Producto producto)
         {
@@ -29,6 +33,16 @@
             }
             return false;
         }
-    }
 
+        public List<Producto> GetInventario()
+        {
+            return Inventario;
+        }
+
+        public int CantProductos()
+        {
+            return Inventario.Count();
+        }
+    }
 }
+
