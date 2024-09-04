@@ -1,8 +1,10 @@
-﻿namespace Proyecto_Ingenierìa_de_software
+﻿using Microsoft.AspNetCore.Routing.Constraints;
+
+namespace Proyecto_Ingenierìa_de_software
 {
     public class Tienda
     {
-        private List<Producto> Inventario;
+        public List<Producto> Inventario;
 
         public Tienda()
         {
@@ -20,18 +22,25 @@
 
         public Producto BuscarProducto(string nombre)
         {
-            return Inventario.FirstOrDefault(p => p.Nombre == nombre);
+            var product = Inventario.FirstOrDefault(p => p.Nombre == nombre);
+            if (product == null) throw new Exception("Invalid product");
+            return product;
         }
 
         public bool EliminarProducto(string nombre)
         {
             var producto = BuscarProducto(nombre);
-            if (producto != null)
-            {
-                Inventario.Remove(producto);
-                return true;
-            }
-            return false;
+            if (producto == null) throw new Exception("Invalid product");
+            Inventario.Remove(producto);
+            return true;
+        }
+
+        public bool ActualizarPrecio(decimal price, string nombre)
+        {
+            if (price < 0) throw new Exception("Negative price");
+            var product = this.BuscarProducto(nombre);
+            product.Precio = price;
+            return true;
         }
 
         public List<Producto> GetInventario()
