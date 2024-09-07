@@ -53,6 +53,13 @@ namespace Proyecto_Ingenierìa_de_software
         {
             return Inventario.Count();
         }
+
+        public virtual bool Aplicar_descuento(string producto, decimal porcentaje)
+        {
+            var precio = this.BuscarProducto(producto).Precio * porcentaje / 100;
+            this.ActualizarPrecio(precio, producto);
+            return true ;
+        }
     }
 }
 
