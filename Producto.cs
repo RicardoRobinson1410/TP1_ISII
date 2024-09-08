@@ -18,7 +18,6 @@ namespace Proyecto_Ingenierìa_de_software
             Precio = precio;
             Categoria = categoria;
         }
-        public Producto() { }
     }
 
 }
