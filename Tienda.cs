@@ -60,6 +60,15 @@ namespace Proyecto_Ingenierìa_de_software
             this.ActualizarPrecio(precio, producto);
             return true ;
         }
+
+        public decimal Calcular_Total_Carrito(List<string> carrito) {
+            decimal total = 0;
+            foreach(var nombre in carrito) {
+                var producto = BuscarProducto(nombre);
+                total += producto.Precio;
+            }
+            return total;
+        }
     }
 }
 

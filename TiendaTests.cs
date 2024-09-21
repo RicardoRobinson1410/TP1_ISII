@@ -2,11 +2,13 @@
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
 using Proyecto_Ingenierìa_de_software;
-using System.Collections.Generic;
 
 [TestFixture]
 public class TiendaTests
 {
+    private Tienda tienda_test;
+
+
     [Test]
     public void AgregarProducto_DeberiaAgregarProductoALaLista()
     {
@@ -41,6 +43,28 @@ public class TiendaTests
         var producto = tienda.BuscarProducto("Producto1");
         ClassicAssert.IsNull(producto);
     }
+
+    /*------TEST INTEGRADOR------*/
+    [SetUp]
+    public void SetUp() 
+    {
+        tienda_test = new Tienda();
+        tienda_test.AgregarProducto(new Producto("Producto1", Convert.ToDecimal(100), "Categoria1"));
+        tienda_test.AgregarProducto(new Producto("Producto2", Convert.ToDecimal(200), "Categoria2"));
+        tienda_test.AgregarProducto(new Producto("Producto3", Convert.ToDecimal(300), "Categoria3"));
+    }
+
+    [Test]
+    public void Calcular_Total_Carrito_DeberiaCalcularTotalCorrectp()
+    {
+        tienda_test.Aplicar_descuento("Producto1", 20);
+        tienda_test.Aplicar_descuento("Producto2", 40);
+        var carrito = new List<string> { "Producto1", "Producto2", "Producto3" };
+        var total = tienda_test.Calcular_Total_Carrito(carrito);
+        //Total esperado = 80 + 120 + 300 = 500
+        ClassicAssert.AreEqual(500, total);
+    }
+
     /*
     [Test]
     public void Aplicar_descuento_DeberiaCalcularCorrectamenteElNuevoPrecio()
