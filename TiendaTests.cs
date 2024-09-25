@@ -40,8 +40,8 @@ public class TiendaTests
         tienda.EliminarProducto("Producto1");
 
         // Verificar que el producto ha sido eliminado
-        var producto = tienda.BuscarProducto("Producto1");
-        ClassicAssert.IsNull(producto);
+        var excepcion = Assert.Throws<Exception>(() => tienda.BuscarProducto("Producto1"));
+        ClassicAssert.AreEqual("Invalid product", excepcion.Message);
     }
 
     /*------TEST INTEGRADOR------*/
@@ -57,8 +57,8 @@ public class TiendaTests
     [Test]
     public void Calcular_Total_Carrito_DeberiaCalcularTotalCorrectp()
     {
-        tienda_test.Aplicar_descuento("Producto1", 20);
-        tienda_test.Aplicar_descuento("Producto2", 40);
+        tienda_test.Aplicar_descuento("Producto1", 80);
+        tienda_test.Aplicar_descuento("Producto2", 60);
         var carrito = new List<string> { "Producto1", "Producto2", "Producto3" };
         var total = tienda_test.Calcular_Total_Carrito(carrito);
         //Total esperado = 80 + 120 + 300 = 500
